@@ -188,6 +188,8 @@
 		font-size: 2rem;
 		margin-top: 7rem;
 		margin-bottom: 3rem;
+		margin-left: 2rem;
+		margin-right: 2rem;
 	}
 
 	@keyframes heading-animation {
