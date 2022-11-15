@@ -68,7 +68,7 @@
 	export async function requestActivityData(type) {
 		requestsPerSec += 1;
 
-		const req = await fetch(`http://www.boredapi.com/api/activity?type=${type}`);
+		const req = await fetch(`https://www.boredapi.com/api/activity?type=${type}`);
 		const data = await req.json();
 		
 		return data;
