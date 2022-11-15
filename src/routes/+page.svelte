@@ -73,9 +73,11 @@
 </script>
 
 <main>
-	<h1>I am bored! 😒</h1>
+	<header>
+		<h1 class="heading">I am bored! 😒</h1>
+		<h2 class="subheading">I want to have...</h2>
+	</header>
 
-	<h3>I want to have...</h3>
 	<div class="activity-buttons-container">
 		{#each activities as activity}
 			<button
@@ -123,6 +125,31 @@
 		font-family: Arial, sans-serif;
 	}
 
+	header {
+		width: 100%;
+		height: 25rem;
+		margin: 0;
+		margin-bottom: 5rem;
+	}
+
+	.heading {
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		padding-top: 4rem;
+		font-size: 4rem;
+		font-weight: 700;
+		color: #fff;
+		animation: heading-animation 400ms cubic-bezier(.33,1.88,.57,.7);
+		background: #ffaa00;
+		height: 20rem;
+		margin-bottom: 2rem;
+	}
+
+	.subheading {
+		text-align: center;
+		font-size: 2rem;
+	}
 
 	.activity-buttons-container {
 		display: flex;
@@ -151,5 +178,17 @@
 		text-align: center;
 		font-size: 2rem;
 		margin-top: 5rem;
+	}
+
+	@keyframes heading-animation {
+		from {
+			transform: translate(10rem, 12rem);
+			rotate: 60deg;
+			opacity: 0;
+		} to {
+			transform: translate(0);
+			rotate: 0deg;
+			opacity: 1;
+		}
 	}
 </style>
