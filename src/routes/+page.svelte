@@ -53,6 +53,8 @@
 	export let requestsPerSec = 0;
 	export let maxRequestsPerSec = 3;
 	export let exceededMaxRequestsPerSec = false;
+	export let amountOfRequestPerSecExceptions = 0;
+	export let hasRequestingBeenBlocked = false;
 
 	export let timer;
 	export function startTiming() {
@@ -86,11 +88,34 @@
 				style={`background-color: ${activity.color}`}
 				on:click={() => {
 					(async () => {
-						if (requestsPerSec > maxRequestsPerSec) {
-							suggestedActivity = 'Hey! Don\'t do that many requests!';
-							exceededMaxRequestsPerSec = true;
+						hasRequestingBeenBlocked = typeof window !== 'undefined' ? localStorage.getItem('blocked') === 'true' : false;
+
+						if (hasRequestingBeenBlocked) {
+							suggestedActivity = 'Your requests have been blocked.';
 							return;
 						}
+
+						if (amountOfRequestPerSecExceptions > 8 && typeof window !== 'undefined') {
+							suggestedActivity = 'HEY!! You\'re acting weird. No more requests!';
+							localStorage.setItem('blocked', 'true');
+							localStorage.setItem('last-suggestion', '');
+							hasRequestingBeenBlocked = true;
+
+							return;
+						}
+
+						if (requestsPerSec > maxRequestsPerSec) {
+							suggestedActivity = 'Hey! Don\'t do that many requests!';
+							if (maxRequestsPerSec > 5) {
+								suggestedActivity += 'Don\'t exceed the number too much or we will block your acess. You have been warned.'
+							}
+							exceededMaxRequestsPerSec = true;
+							
+							amountOfRequestPerSecExceptions += 1;
+
+							return;
+						}
+
 						suggestedActivity = 'Loading...';
 						const data = await requestActivityData(activity.apiEquivalent);
 						
@@ -127,6 +152,7 @@
 		margin: 0;
 		padding: 0;
 		font-family: Arial, sans-serif;
+		overflow-x: hidden;
 	}
 
 	::selection {
