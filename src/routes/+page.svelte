@@ -48,6 +48,7 @@
 	];
 
 	export let suggestedActivity;
+	export let suggestionElement;
 
 	export let requestsPerSec = 0;
 	export let maxRequestsPerSec = 3;
@@ -98,6 +99,9 @@
 
 						localStorage.setItem('last-suggestion', suggestedActivity);
 
+						suggestionElement.scrollIntoView({
+							behavior: 'smooth' 
+						});
 
 						startTiming();
 					})();
@@ -106,7 +110,7 @@
 		{/each}
 	</div>
 
-	<h4 class="suggested-activity">
+	<h4 class="suggested-activity" bind:this={suggestionElement}>
 		{suggestedActivity ?? 
 		(
 			(
@@ -177,7 +181,8 @@
 	.suggested-activity {
 		text-align: center;
 		font-size: 2rem;
-		margin-top: 5rem;
+		margin-top: 7rem;
+		margin-bottom: 3rem;
 	}
 
 	@keyframes heading-animation {
