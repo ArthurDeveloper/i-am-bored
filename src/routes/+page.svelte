@@ -122,21 +122,26 @@
 	</h4>
 </main>
 
-<style lang="scss">
-	* {
+<style global>
+	:global(body) {
 		margin: 0;
 		padding: 0;
 		font-family: Arial, sans-serif;
 	}
 
+	::selection {
+		background: #ffaa00;
+		color: #fff;
+	}
+
 	header {
 		width: 100%;
 		height: 25rem;
-		margin: 0;
 		margin-bottom: 5rem;
 	}
 
 	.heading {
+		margin: 0;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
